@@ -1,0 +1,54 @@
+<div class="col-md-6 sm-m-top-30">
+  <form method="POST" name="mailFrm" action="./contactus/mail-send">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Contact Team Members *</label>
+          <select class="form-control" name="toAddress" id="toAddress" data-value-title="Contact Team Members" data-not-null="true">
+            <option value="dev-truly@naver.com">한영민</option>
+            <option value="tisrenac21@kakao.com">이재현</option>
+            <option value="ktorn21@naver.com">황정훈</option>
+            <option value="ktgkid@naver.com">김태건</option>
+            <option value="atozaer@gmail.com">조용운</option>
+            <option value="hardbee88@gmail.com">김종국</option>
+            <option value="astroskid@naver.com">정선욱</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input name="name" id="name" type="text" class="form-control"  data-value-title="작성자명" data-not-null="true">
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Your Email *</label>
+          <input name="fromAddress" id="fromAddress" type="email"  data-value-type="email" data-value-title="작성자 이메일" data-not-null="true" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label>Your Message *</label>
+          <textarea name="content" id="content" class="form-control" rows="6"  data-value-title="문의내용" data-not-null="true"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" name="mail-submit" class="btn btn-default">SEND MESSAGE <i class="fa fa-long-arrow-right"></i></button>
+          <!--<a href="" class="btn btn-default"></a>-->
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+</div>
+
+<div class="col-md-6">
+  <div class="contact_img">
+    <img src="/assets/images/devnpsteam.jpeg" alt="" />
+  </div>
+</div>

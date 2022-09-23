@@ -1,0 +1,53 @@
+server:
+  port: 8087
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3356/tj?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: love1004
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+  devtools:
+    restart:
+      enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dev.trury@gmail.com
+    password: whyjijlwuoiuhiwg
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.trust: smtp.gmail.com
+      mail.smtp.ssl.protocols: TLSv1.2
+    protocol: smtp
+    smtp:
+      start-tls-enable: true
+      auth: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+      location:
+logging:
+  level:
+    root: info

@@ -1,0 +1,7 @@
+section#form {margin-top: 0px;}
+#signup-table td {padding-left: 10px;}
+#signup-table th {padding-bottom: 22px;}
+#id-check, #passwd-check, #passwd-confirm, .blank-area { text-align:left; height: 18px; font-size:9px; }
+.warning { color : red; }
+.success { color : blue; }
+input { font-size:18px; padding: 5px; border-radius: 3px; border:solid 1px #c7c7c7; margin-bottom: 5px; height: unset; }

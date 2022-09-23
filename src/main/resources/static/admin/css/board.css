@@ -1,0 +1,26 @@
+h2.board-title {padding: 0 0 10px 20px;text-align: center;}
+.table {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    margin:0 auto;
+    width: 100%;
+}
+.table th {text-align: center;}
+.table thead tr th { border-top: solid 1px #c7c7c7 !important;border-bottom: solid 1px #c7c7c7;font-size:16px; padding: 17px 0px; background-color: #fff;}
+.table tbody tr th, .table tbody tr td {border-bottom: solid 1px #e8e8e8;font-size:15px; padding: 17px 0px;}
+.table tbody tr:nth-last-child th, .table tbody tr:nth-last-child td {border-bottom: solid 1px #c7c7c7;}
+.table tbody tr td {text-align: center;}
+.table tbody tr td.title {text-align: left;padding-left: 10px;}
+.table {border:none;}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border: solid 1px #c7c7c7;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}

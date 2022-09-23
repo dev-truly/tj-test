@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>게시물 수정</title>
+	<link rel="Stylesheet" href="/admin/css/default.css" />
+	<link rel="Stylesheet" href="/admin/css/board.css" />
+	<style>
+		#data-title input[type="text"] { width: 100%; }
+		input[type="text"], input[type="password"], textarea { padding: 5px; border: solid 1px #dadada;border-radius: 3px; }
+		input[type="text"], input[type="password"] { font-size:18px; }
+		textarea { background: #fff;}
+		.table tbody th { vertical-align: middle;text-align: right; }
+		.table tbody td { text-align: left !important; padding: 10px !important; }
+		.filebox { margin: 3px; }
+		.filebox .upload-name {
+			display: inline-block;
+			vertical-align: middle;
+			border: solid 1px #dadada;
+			border-radius: 3px;
+			color: #999999;
+			cursor: pointer;
+		}
+		.filebox .upload-name:focus {
+			border: solid 1px #dadada;
+			border-radius: 3px;
+		}
+		.filebox input[type="file"] { position: absolute;width: 0;height: 0;padding: 0;overflow: hidden;border: 0;}
+		.filebox label { cursor: pointer; }
+		#display-area { border-radius: 3px;border: solid 1px #c7c7c7; padding: 5px !important; overflow: auto; width:100%; }
+		#display-area li { display: inline; list-style: none; margin: 0 3px; padding:3px; border:solid 1px #c7c7c7;border-radius: 3px;cursor: pointer;}
+	</style>
+	<script th:if="${boardCode} == null">alert("선택 된 게시판이 없습니다.");history.back();</script>
+</head>
+<body>
+	<div th:include="./admin/inc/header.html"></div>
+	<div id="pageContainer">
+		<div style="width: 900px;padding-top:25px;text-align:center;margin:0 auto;">
+			<h2 class="board-title">게시글 작성</h2>
+			<div class="search-area">
+
+				<form id="boardSearchForm" name="boardSearchForm" method="get" style="display:inline-block;">
+					<input type="hidden" name="pageSize" th:value="${pageSize}" />
+					<input type="hidden" name="pageNo" th:value="${pageNo}" />
+					<input type="hidden" name="searchType" th:value="${searchType}" />
+					<input type="hidden" name="searchValue" th:value="${searchValue}" />
+				</form>
+			</div>
+			<!--<input id="write" type="button" value="글쓰기"
+				style="width:300px;height:25px" />-->
+			<div class="table-responsive">
+				<form method="post" name="writeform" id="writeform" th:action="@{/admin/board/{boardCode}/{boardNo}/modify(boardCode = ${boardCode}, boardNo = ${boardNo})}" >
+					<input type="hidden" name="boardNo" th:value="${board.boardNo}" />
+					<input type="hidden" name="boardCode" th:value="${board.boardCode}" />
+					<input type="hidden" name="ref" th:value="${board.ref}" />
+					<input type="hidden" name="attachCnt" th:value="${board.attachCnt}" />
+					<table class="table" cellpadding="0" cellspacing="0">
+						<colgroup>
+							<col style="width:100px;" />
+							<col style="width:auto;" />
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>제목</th>
+							<td id="data-title">
+								<input type="text" name="title" id="title" data-not-null="true" data-value-title="제목" th:value="${board.title}"/>
+							</td>
+						</tr>
+						<tr th:if="${board.attachCnt} > 0">
+							<th>첨부 이미지</th>
+							<td>
+								<ul id="display-area">
+									<li th:each="attach : ${board.boardAttaches}" >
+										<img th:src="@{/admin/board/display?fileName=s_{file}(file=${attach.serverFileName})}" style="max-height: 100px;" th:ondblclick="imageDelete(this, [[ ${attach.boardNo} ]], [[ ${attach.attachNo} ]])" title="더블 클릭시 삭제" />
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td>
+								<input type="text" name="writer" id="writer" value="" data-not-null="true" data-value-title="작성자" th:value="${board.writer}" />
+							</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td id="data-content">
+								<textarea name="content" id="content" rows="20" data-not-null="true" style="width:100%;" data-value-title="내용">[[ ${board.content} ]]</textarea>
+							</td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td>
+								<input type="password" name="password" id="password" data-not-null="true" data-value-title="비밀번호" />
+							</td>
+						</tr>
+						<tr>
+							<th>추가이미지</th>
+							<td>
+								<div id="filebox-area" style="display: inline-block;">
+									<div class="filebox" id="default-file-box">
+										<input class="upload-name" type="text" readonly value="첨부이미지" placeholder="첨부이미지">
+										<label for="file">파일찾기</label>
+										<input type="file" class="attach-file" id="file" name="attach" accept="image/jpeg, image/png, image/jpg, image/gif, image/bmp">
+									</div>
+								</div>
+								<button type="button" class="btn btn-default" id="add-file-box" style="display: inline-block;border:solid 1px #000; padding: 3px 6px 2px 6px;border-radius: 5px;">✚</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<div class="pagination-area" style="text-align: right; height: 40px;">
+						<button type="submit" class="btn btn-default">글 수정 완료</button>
+						<button type="button" class="listView btn btn-default">목록</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/assets/js/common.js"></script>
+	<script src="/assets/js/PnJValidation.js"></script>
+	<script src="/assets/js/easyEditor.js"></script>
+	<script>
+		let imageDelete = (obj, boardNo, imageNo) => {
+			if (confirm("해당 이미지를 정말 삭제 하시겠습니까?")) {
+				XMLAjax(`/admin/attach/${boardNo}/${imageNo}/delete`, "DELETE", {}, (data) => {
+					let objData = JSON.parse(data);
+					if (objData.result) {
+						obj.parentNode.remove();
+						let attachCnt = document.querySelectorAll("#display-area li").length;
+						document.writeform.attachCnt.value = attachCnt;
+						if (attachCnt == 0) {
+							document.querySelector("#display-area").remove();
+						}
+					}
+					else {
+						alert("이미지 삭제에 실패 했습니다.");
+					}
+				})
+			}
+		}
+		const FILE_FORM = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+		const MAX_SIZE = 5 * 1024 * 1024;
+
+		let ed3 = new easyEditor("content");
+		ed3.init();
+
+		const fileBoxHtml = document.querySelector("#default-file-box").innerHTML;
+		document.querySelector("#add-file-box").addEventListener("click", () => {
+			let fileBoxArea = document.querySelector("#filebox-area");
+			let fileBoxLength = fileBoxArea.querySelectorAll(".filebox").length;
+
+			let addFileBox = document.createElement("div");
+			addFileBox.classList.add("filebox");
+			addFileBox.innerHTML = fileBoxHtml;
+			addFileBox.querySelector("label").setAttribute("for", "file" + fileBoxLength);
+			addFileBox.querySelector("#file").setAttribute("id", "file" + fileBoxLength);
+			fileBoxArea.append(addFileBox);
+			fileBoxReset();
+		})
+
+		let fileBoxChangeEvent = (e) => {
+			e.target.parentElement.querySelector(".upload-name").value = e.target.value;
+		};
+
+		let fileBoxClickEvent = (e) => {
+			e.target.parentElement.querySelector(".attach-file").click();
+		};
+
+		const fileBoxReset = () => {
+			document.querySelectorAll(".attach-file").forEach((e) => {
+				e.removeEventListener("change", fileBoxChangeEvent);
+				e.addEventListener("change", fileBoxChangeEvent);
+			});
+
+			document.querySelectorAll(".upload-name").forEach((e) => {
+				e.removeEventListener("click", fileBoxClickEvent);
+				e.addEventListener("click", fileBoxClickEvent);
+			});
+		}
+		fileBoxReset();
+
+		const writeValid = new PnJValidation(document.writeform,
+				['title', 'writer', 'password']
+		);
+
+		/*<![CDATA[*/
+		const LIST_PAGE_URL = "/admin/board/[[ ${boardCode} ]]/list"
+		const SEARCH_LIST_PAGE = LIST_PAGE_URL + "?" + new URLSearchParams(new FormData(document.boardSearchForm)).toString();
+		document.querySelector("button.listView").addEventListener("click", () => {
+			location.href = SEARCH_LIST_PAGE;
+		});
+
+		writeValid.setSubmitAction((e) => {
+			let attachments = document.querySelectorAll("input[name='attach']");
+			let attachCount = 0;
+			Object.values(attachments).forEach((v) => {
+				if (v.value != '' && v.value != undefined) {
+					const fileName = v.value;
+					if (!fileName.match(FILE_FORM)) {
+						alert("이미지가 아닌 첨부 파일이 존재 합니다.");
+						return;
+					}
+					if (v.files[0].size > MAX_SIZE) {
+						alert(`${MAX_SIZE / 1024 / 1024}MB 이상의 첨부 이미지가 존재 합니다.`);
+						return;
+					}
+					attachCount++;
+				}
+
+			});
+
+			if (document.writeform.attachCnt.value == 0 && attachCount == 0) {
+				alert("최소 1개 이상의 이미지를 첨부 해주시기 바랍니다.");
+				return;
+			}
+
+			const _form = writeValid._form;
+			_form.content.innerHtml = ed3.getHtml();
+
+			XMLAjax(_form.action, _form.method, new FormData(_form), (data) => {
+				const resultData = JSON.parse(data);
+				if (resultData.result) {
+					alert("게시글 수정이 완료 되었습니다.");
+					location.href = SEARCH_LIST_PAGE;
+				}
+				else {
+					alert("게시글 등록에 실패 했습니다.");
+				}
+			});
+		});
+		/*]]*/
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

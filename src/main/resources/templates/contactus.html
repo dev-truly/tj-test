@@ -1,0 +1,225 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Contact us page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="favicon.ico">
+
+        <!--Google Fonts link-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i,700,700i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="/assets/css/slick.css">
+        <link rel="stylesheet" href="/assets/css/slick-theme.css">
+        <link rel="stylesheet" href="/assets/css/animate.css">
+        <link rel="stylesheet" href="/assets/css/fonticons.css">
+        <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/bootsnav.css">
+
+
+        <!--For Plugins external css-->
+        <!--<link rel="stylesheet" href="assets/css/plugins.css" />-->
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <!--<link rel="stylesheet" href="assets/css/colors/maron.css">-->
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="/assets/css/responsive.css" />
+
+        <script src="/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar-collapse">
+
+
+        <!-- Preloader -->
+
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                    <div class="object"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--End off Preloader -->
+
+
+        <div class="culmn">
+            <!--Home page style-->
+            <div th:include="./inc/header.html"></div>
+            <!--Home Sections-->
+
+            <section id="hello" class="contact-banner bg-mega">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="main_home text-center">
+                            <div class="contact_text">
+                                <h1 class="text-white text-uppercase">Contact Us</h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#">Home</a></li>
+                                    <li class="active"><a href="#">Contact Us</a></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!--End off row-->
+                </div><!--End off container -->
+            </section> <!--End off Home Sections-->
+
+
+            <!--Call To Action Section-->
+
+            <section id="action" class="action roomy-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="main_action text-center">
+                            <div class="col-md-4">
+                                <div class="action_item">
+                                    <i class="fa fa-map-marker"></i>
+                                    <h4 class="text-uppercase m-top-20">Address</h4>
+                                    <p>서울특별시 구로구 디지털로 306, 대륭포스트타워 2차<br />206호</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="action_item">
+                                    <i class="fa fa-users"></i>
+                                    <i class="fa fa-headphones"></i>
+                                    <h4 class="text-uppercase m-top-20">Members phone</h4>
+                                    <p>한영민 | 010-9771-8915<br />
+                                       이재현 | 010-8663-1564<br />
+                                       황정훈 | 010-9205-1093<br />
+                                       김태건 | 010-2580-3407<br />
+                                        조용운 | 010-9645-6040<br />
+                                        김종국 | 010-6781-8200<br />
+                                        정선욱 | 010-2932-5482
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="action_item">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <h4 class="text-uppercase m-top-20">Email</h4>
+                                    <p style="text-align: left;padding-left: 140px;">dev-truly@naver.com<br />
+                                        tisrenac21@kakao.com<br />
+                                        ktorn21@naver.com<br />
+                                        ktgkid@naver.com<br />
+                                        atozaer@gmail.com<br />
+                                        hardbee88@gmail.com<br />
+                                        astroskid@naver.com
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- map section-->
+            <div id="map" class="map" style="width:100%;height:500px;">
+            </div><!-- End off Map section-->
+
+
+
+            <!--Contact Us Section-->
+            <section id="contact" class="contact fix">
+                <div class="container">
+                    <div class="row">
+                        <div class="main_contact p-top-100">
+                            <div th:include="./inc/contactmail.html"></div>
+                        </div>
+                    </div><!--End off row -->
+                </div><!--End off container -->
+            </section><!--End off Contact Section-->
+
+
+            <!--Company section-->
+            <div th:include="./inc/footer.html"></div>
+        </div>
+
+        <!-- JS includes -->
+
+        <script src="/assets/js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="/assets/js/vendor/bootstrap.min.js"></script>
+
+        <script src="/assets/js/isotope.min.js"></script>
+        <script src="/assets/js/jquery.magnific-popup.js"></script>
+        <script src="/assets/js/jquery.easing.1.3.js"></script>
+        <script src="/assets/js/slick.min.js"></script>
+        <script src="/assets/js/jquery.collapse.js"></script>
+        <script src="/assets/js/bootsnav.js"></script>
+
+        <script src="/assets/js/plugins.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/common.js"></script>
+        <script src="/assets/js/PnJValidation.js"></script>
+        <script src="/assets/js/DisplayAnimation.js"></script>
+        <script src="/assets/js/contactmail.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fa3ef1d8802160284584d98d6327e2a7&libraries=services"></script>
+        <script>
+
+            document.cookie="safeCookie1=foo; SameSite=Lax";
+            document.cookie="safeCookie2=foo";
+            document.cookie="crossCookie=bar; SameSite=None; Secure";
+
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                level: 2
+            };
+
+            var map = new kakao.maps.Map(container, options);
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch('서울특별시 구로구 디지털로 306', function(result, status) {
+
+                // 정상적으로 검색이 완료됐으면
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">DevPns Team.</div>'
+                    });
+                    infowindow.open(map, marker);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                }
+            });
+
+        </script>
+    </body>
+</html>

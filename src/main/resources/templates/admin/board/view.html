@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>게시물 상세</title>
+	<link rel="Stylesheet" href="/admin/css/default.css" />
+	<link rel="Stylesheet" href="/admin/css/board.css" />
+	<style>
+		.table tbody tr:first-child td {padding: 10px;}
+		.table tbody tr:first-child td div { float: left; }
+		.table tbody tr:first-child td span { padding: 0 5px; font-size: 13px; color: #8d8d8d; }
+		.table tbody tr:first-child td span#split { padding: 0 5px; font-size: 15px; color: #d2d2d2; }
+		.table tbody tr td#data-content { text-align: unset; padding: 20px; }
+		.table tbody tr.attach-area td {text-align: left; font-size: 13px; padding-left: 20px; color: #8d8d8d;}
+		#modal { position: absolute;background: #000; z-index: 10; top:0; left:0; width: 100%; height:100%;opacity: 0.7; display: none; }
+		#board-password-area { position: fixed; background: #fff; z-index: 11; border-radius: 10px; top: 0; left: 0;text-align:center; padding: 20px; display:none; width: 353px; height: 80px; }
+		#board-password-area div { float: left; }
+		#board-password-area button { margin: 3px 3px; }
+		input[name="boardPassword"] { font-size: 18px; padding: 5px; height: 40px; border: solid 1px #dadada; border-radius: 3px; }
+		#board-password-button-area { height: 40px; }
+	</style>
+	<script th:if="${board} == null">alert("조회 된 게시글이 없습니다.");history.back();</script>
+</head>
+<body>
+	<div th:include="./admin/inc/header.html"></div>
+	<div id="pageContainer">
+		<div style="width: 900px;padding-top:25px;text-align:center;margin:0 auto;">
+			<h2 class="board-title">게시판 상세</h2>
+			<div class="search-area">
+
+				<form id="boardSearchForm" name="boardSearchForm" method="get" style="display:inline-block;">
+					<input type="hidden" name="pageSize" th:value="${pageSize}" />
+					<input type="hidden" name="pageNo" th:value="${pageNo}" />
+					<input type="hidden" name="searchType" th:value="${searchType}" />
+					<input type="hidden" name="searchValue" th:value="${searchValue}" />
+				</form>
+			</div>
+			<!--<input id="write" type="button" value="글쓰기"
+				style="width:300px;height:25px" />-->
+			<table class="table" cellpadding="0" cellspacing="0" th:if="${board} != null">
+				<colgroup>
+					<col style="width:auto;" />
+				</colgroup>
+				<thead>
+				<tr>
+					<th id="data-title" scope="col" style="text-align: left; padding-left: 20px;" th:text="${board.title}"></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr id="board-info">
+					<td style="text-align: left; padding-left: 20px;">
+						<div style="width:35%;">
+							<span id="data-writer" th:text="${board.writer}"></span><span id="split"> | </span><span id="data-regDate" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd hh:mm:ss')}"></span>
+						</div>
+						<div style="width:60%;text-align:right;padding-right: 20px;">
+							<span>조회수</span> <span id="data-readCount" th:text="${board.readCount}">0</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td id="data-content" >
+						<p th:each="boardAttach : ${board.boardAttaches}">
+							<img th:src="@{/admin/board/display?fileName={file}(file=${boardAttach.serverFileName})}" style="max-width: 100%;"/>
+						</p>
+						<div style="text-align: left;" th:utext="${board.content}"></div>
+					</td>
+				</p>
+				</tbody>
+			</table>
+			<div class="pagination-area" style="text-align: right; height: 40px;">
+				<button class="delete btn btn-default">삭제</button>
+				<button class="modify btn btn-default">수정</button>
+				<button class="listView btn btn-default">목록</button>
+			</div>
+		</div>
+	</div>
+	<script src="/assets/js/common.js"></script>
+	<script>
+
+		/*<![CDATA[*/
+		const PARAM = new URLSearchParams(new FormData(document.boardSearchForm)).toString();
+		const LIST_PAGE_URL = "/admin/board/[[ ${boardCode} ]]/list?" + PARAM;
+		document.querySelector("button.listView").addEventListener("click", () => {
+			location.href = LIST_PAGE_URL;
+		});
+		document.querySelector(".modify").addEventListener("click", () => {
+			location.href = "/admin/board/[[ ${boardCode} ]]/[[ ${boardNo} ]]/modify?" + PARAM;
+		})
+		document.querySelector("button.delete").addEventListener("click", () => {
+			if (confirm("정말 해당 게시글을 삭제 하시겠습니까?")) {
+				XMLAjax("/admin/board/delete/[[ ${boardNo} ]]", "DELETE", {}, (data)=> {
+					let objData = JSON.parse(data);
+					if (objData.result) {
+						alert("해당 게시글이 정상 삭제 되었습니다.");
+						location.href = LIST_PAGE_URL;
+					}
+					else {
+						alert("게시글 삭제에 실패 했습니다.");
+					}
+				})
+			}
+		});
+		/*]]*/
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
